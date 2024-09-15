@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const generoView = () => {
+export const GeneroView = () => {
   return (
     <div>
-      
+      Genéros de película
     </div>
   )
 }

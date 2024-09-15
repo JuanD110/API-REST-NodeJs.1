@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     
 
-    <nav ClassName="navbar navbar-expand-lg bg-body-tertiary">
+    <nav ClassName="navbar navbar-expand-lg navbar-dark bg-dark">
         <div ClassName="container-fluid">
             <NavLink ClassName="navbar-brand" exact to='/'>PelisPlay</NavLink>
     
@@ -17,23 +17,23 @@ export const Header = () => {
                 <ul ClassName="navbar-nav me-auto mb-2 mb-lg-0">
                     
                     <li ClassName="nav-item">
-                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/'>Media</NavLink>
+                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/media'>Media</NavLink>
                     </li>
                     
                     <li ClassName="nav-item">
-                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/'>Directores</NavLink>
+                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/director'>Directores</NavLink>
                     </li>
                     
                     <li ClassName="nav-item">
-                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/'>Tipo</NavLink>
+                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/tipo'>Tipo</NavLink>
                     </li>
                     
                     <li ClassName="nav-item">
-                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/'>Genero</NavLink>
+                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/genero'>Genero</NavLink>
                     </li>
                     
                     <li ClassName="nav-item">
-                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/'>Productora</NavLink>
+                        <NavLink ClassName="nav-link " activeClassName='active' exact to='/productora'>Productora</NavLink>
                     </li>
                 
             </ul>
