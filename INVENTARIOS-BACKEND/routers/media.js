@@ -17,7 +17,6 @@ router.get('/', async function (req, res) {
         res.status(500).send('Ocurrió un error');
     }
 });
-
 // Crear nueva producción
 router.post('/', [
     check('serial', 'El campo serial es obligatorio y debe ser único').not().isEmpty(),

@@ -1,4 +1,3 @@
-import { Header } from "../components/ui/header";
 import { axiosInstance } from "../helper/axios-config";
 
 const getDirectores = () => {
@@ -10,10 +9,20 @@ const getDirectores = () => {
 }
 
 const crearDirector = (data) => {
-    return axiosInstance.get('director', { //http://localhost4000/director
+    return axiosInstance.post('director', { //http://localhost4000/director
         header: {
             'Content-Type': 'application/json'
         }
      });
 }
+
+const actualizarDirector = (directorId, data) => {
+    return axiosInstance.put(`director/${directorId}`, data,{
+        header: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+export { actualizarDirector, crearDirector, getDirectores };
 
