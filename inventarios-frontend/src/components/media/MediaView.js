@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { getMedia } from "../../services/mediaService";
 import { MediaCard } from "./MediaCard";
 import { MediaNew } from "./MediaNew";
@@ -9,11 +10,17 @@ export const MediaView = () => {
 
 
   const listarMedia = async() => {
-    try{
+    try {
+      Swal.fire({
+        allowOutsideClick: false,
+        text: 'Cargando...'
+      });
+      Swal.showLoading();
       const { data } = await getMedia();
       console.log(data);
+      Swal.close();
       setMedia(data);
-
+      
     } catch (error){
       console.log(error);
     }
@@ -44,7 +51,7 @@ export const MediaView = () => {
             openModal ? <MediaNew
             handleOpenModal = { handleOpenModal}
             listarMedia = { listarMedia } /> :
-            <button className= "btn btn-primary agr" onClick={ handleOpenModal}>
+            <button type= "button" className = "btn btn-primary agr" onClick={ handleOpenModal}>
           <i class="fa-solid fa-plus"></i>
           </button>
           }

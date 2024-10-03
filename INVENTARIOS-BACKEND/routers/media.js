@@ -17,7 +17,6 @@ router.get('/', async function (req, res) {
         res.status(500).send('Ocurrió un error');
     }
 });
-// Crear nueva producción
 router.post('/', [
     check('serial', 'El campo serial es obligatorio y debe ser único').not().isEmpty(),
     check('titulo', 'El campo titulo es obligatorio').not().isEmpty(),
@@ -32,8 +31,12 @@ router.post('/', [
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            console.log("Errores de validación: ", errors.array()); // Agregar más detalles de los errores
             return res.status(400).json({ errores: errors.array() });
         }
+
+        // Log para verificar los datos que llegan
+        console.log("Datos recibidos: ", req.body);
 
         let media = new Media({
             serial: req.body.serial,
@@ -53,8 +56,8 @@ router.post('/', [
         media = await media.save();
         res.status(201).json(media);
     } catch (error) {
-        console.error('Error al guardar la película:', error);
-        res.status(500).send('Ocurrió un error al intentar guardar la película');
+        console.error('Error al guardar la media: ', error);  // Log del error
+        res.status(500).send('Ocurrió un error al intentar guardar la media');
     }
 });
 

@@ -1,111 +1,111 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { getDirectores } from '../../services/directorService';
 import { getGeneros } from '../../services/generoService';
 import { crearMedia } from '../../services/mediaService';
 import { getProductora } from '../../services/productoraService';
 import { getTipo } from '../../services/tipoService';
 
-
 export const MediaNew = ({ handleOpenModal, listarMedia }) => {
+
+  const [directores, setDirectores ] = useState([]);
+  const [productoras, setProductora ] = useState([]);
+  const [generos, setGeneros ] = useState([]);
+  const [tipos, setTipo ] = useState([]);
+  const [ valoresForm, setValoresForm ] = useState([]);
+  const { serial = '', titulo = '',  sinopsis = '', url = '', imagenPortada = '',
+      añoEstreno = '', fechaCreacion = '', fechaActualizacion = '', generoPrincipal, directorPrincipal, productora, tipo } = valoresForm
   
-  const [generos, setGeneros] = useState([]);
-  const [directores, setDirectores] = useState([]);
-  const [productoras, setProductoras] = useState([]);
-  const [tipos, setTipos] = useState([]);
-  const [valoresForm, setValoresForm] = useState({
-    serial: '', titulo: '', sinopsis: '', url: '', imagenPortada: '',
-    fechaCreacion: '', fechaActualizacion: '', añoEstreno: '',
-    generoPrincipal: '', directorPrincipal: '', productora: '', tipo: ''
-  });
-
-  const {
-    serial, titulo, sinopsis, url, imagenPortada,
-    fechaCreacion, fechaActualizacion, añoEstreno,
-    generoPrincipal, directorPrincipal, productora, tipo
-  } = valoresForm;
-
-  const listarDirectores = async () => {
-    try {
+const listarDirectores = async () => {
+  try{
       const { data } = await getDirectores();
       setDirectores(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const listarGeneros = async () => {
-    try {
+  } catch(error) {
+      console.log(error);
+  }
+}
+
+useEffect(() => {
+  listarDirectores();
+}, []);
+
+
+const listarProductoras = async () => {
+  try{
+      const { data } = await getProductora();
+      setProductora(data);
+
+  } catch(error) {
+      console.log(error);
+  }
+}
+
+useEffect(() => {
+  listarProductoras();
+}, []);
+
+
+const listarTipos = async () => {
+  try{
+      const { data } = await getTipo();
+      setTipo(data);
+
+  } catch(error) {
+      console.log(error);
+  }
+}
+
+useEffect(() => {
+  listarTipos();
+}, []);
+
+
+const listarGeneros = async () => {
+  try{
       const { data } = await getGeneros();
       setGeneros(data);
-    } catch (error) {
+
+  } catch(error) {
       console.log(error);
-    }
-  };
+  }
+}
 
-  const listarTipo = async () => {
-    try {
-      const { data } = await getTipo();
-      setTipos(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+useEffect(() => {
+  listarGeneros();
+}, []);
 
-  const listarProductora = async () => {
-    try {
-      const { data } = await getProductora();
-      setProductoras(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    listarDirectores();
-    listarGeneros();
-    listarTipo();
-    listarProductora();
-  }, []);
-
-  const handleOnChange =  ({ target }) => {
-    const { name, value } = target;
-    setValoresForm({ ...valoresForm, [name]: value });
-  };
+  
+  const handleOnChange = ({ target }) => {
+      const { name, value } = target;
+      setValoresForm({ ...valoresForm, [name]: value });
+  }
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    const media = {
-      serial,
-      titulo,
-      sinopsis,
-      url,
-      imagenPortada,
-      fechaCreacion,
-      fechaActualizacion,
-      añoEstreno,
-      generoPrincipal: {
-        _id: generoPrincipal 
-      },
-      directorPrincipal: {
-        _id: directorPrincipal 
-      },
-      productora: {
-        _id: productora 
-      },
-      tipo: {
-        _id: tipo 
+      e.preventDefault();
+      const media = {
+          serial, titulo, sinopsis, url, imagenPortada, añoEstreno, generoPrincipal,
+          directorPrincipal, productora, tipo
       }
-    };
+      console.log(media);
+      try {
+          Swal.fire({
+              allowOutsideClick: false,
+              text: 'Cargando...'
+          });
+          Swal.showLoading();
+          const { data } = await crearMedia(media);
+          handleOpenModal();
+          listarMedia();
+          Swal.close();
 
-    try {
-      await crearMedia(media);
-      console.log("Media guardada correctamente");
-      handleOpenModal(); 
-    } catch (error) {
-      console.log("Error al guardar media", error);
-    }
-};
-
+      } catch(error) {
+          console.log(error);
+          console.log('Errores de validación:', error.response.data.errores);
+          Swal.close();
+      }
+      
+  }
 
   return (
     <div className='sidebar'>
@@ -174,7 +174,7 @@ export const MediaNew = ({ handleOpenModal, listarMedia }) => {
               <div className="mb-3">
                 <label className="form-label">Fecha Creacion</label>
                 <input type="date" name='fechaCreacion' 
-                  value={fechaCreacion} onChange={handleOnChange} required 
+                  value={fechaCreacion} onChange={handleOnChange}  
                   className="form-control" />
               </div>
             </div>
@@ -182,14 +182,14 @@ export const MediaNew = ({ handleOpenModal, listarMedia }) => {
               <div className="mb-3">
                 <label className="form-label">Fecha Actualizacion</label>
                 <input type="date" name='fechaActualizacion' 
-                  value={fechaActualizacion} onChange={handleOnChange} required 
+                  value={fechaActualizacion} onChange={handleOnChange} 
                   className="form-control" />
               </div>
             </div>
             <div className='col'>
               <div className="mb-3">
                 <label className="form-label">Año Estreno</label>
-                <input type="text" name='añoEstreno' 
+                <input type="number" name='añoEstreno' 
                   value={añoEstreno} onChange={handleOnChange} required 
                   className="form-control" />
               </div>
@@ -260,7 +260,7 @@ export const MediaNew = ({ handleOpenModal, listarMedia }) => {
           </div>
           <div className= 'row'>
             <div className= 'col'>
-              <button type= "button" className= "btn btn-primary">Guardar</button>
+              <button className= "btn btn-primary">Guardar</button>
             </div>
           </div>
         </form>
