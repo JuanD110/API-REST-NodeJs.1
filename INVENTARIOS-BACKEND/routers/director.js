@@ -47,6 +47,7 @@ router.post('/', [
             res.status(500).send('Ocurrió un error al intentar guardar el director');
         }
     }
+
 );
 
 // Actualizar director
@@ -55,6 +56,7 @@ router.put('/:id', [
     check('nombres', 'El campo nombres es obligatorio').not().isEmpty(),
     check('estado', 'El campo estado es obligatorio y debe ser Activo o Inactivo').isIn(['Activo', 'Inactivo'])
 ], async (req, res) => {
+
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

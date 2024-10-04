@@ -9,7 +9,7 @@ const getDirectores = () => {
 }
 
 const crearDirector = (data) => {
-    return axiosInstance.post('director', { //http://localhost4000/director
+    return axiosInstance.post('director', data, { //http://localhost4000/director
         header: {
             'Content-Type': 'application/json'
         }

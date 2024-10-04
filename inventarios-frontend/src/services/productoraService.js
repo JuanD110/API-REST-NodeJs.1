@@ -9,7 +9,7 @@ const getProductora = () => {
 }
 
 const crearProductora = (data) => {
-    return axiosInstance.post('productora', { //http://localhost4000/productora
+    return axiosInstance.post('productora', data, { //http://localhost4000/productora
         header: {
             'Content-Type': 'application/json'
         }

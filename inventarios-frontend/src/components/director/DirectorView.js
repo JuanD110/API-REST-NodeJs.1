@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { getDirectores } from "../../services/directorService";
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import { getDirectores} from "../../services/directorService";
+import { DirectorCard } from "./DirectorCard";
+import { DirectorNew } from "./DirectorNew";
 
 export const DirectorView = () => {
+  const[director, setDirector ] = useState([]);
+  const [ openModal, setOpenModal ] = useState(false);
 
-  const [directores, setDirectores ] = useState([])
 
   const listarDirectores = async() => {
-    try{
+    try {
+      Swal.fire({
+        allowOutsideClick: false,
+        text: 'Cargando...'
+      });
+      Swal.showLoading();
       const { data } = await getDirectores();
       console.log(data);
-      setDirectores(data);
-
+      Swal.close();
+      setDirector(data);
+      
     } catch (error){
       console.log(error);
     }
@@ -20,30 +30,34 @@ export const DirectorView = () => {
     listarDirectores();
   }, []);
 
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
+  }
+
   
   return (
     <div className="container">
-      <div className="mt-2 mb-2 row row-cols-1 row-cols-md-2 g-4">
+      <div className="mt-2 mb-2 row row-cols-1 row-cols-md-4 g-4">
         {
-          directores.map((director) => {
-            return (
-              <div className="col">
-                <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title">Director</h5>
-                      <p className="card-text">{`Nombre: ${director.nombres}`}</p>
-                      <p className="card-text">{`Estado: ${director.estado}`}</p>
-
-                    </div>
-                  </div>
-                </div>
-            );
+          director.map((directorItem) => {
+            return <DirectorCard key = { directorItem._id} director = {directorItem} />
+            
           })
         }
+
+    
           </div>
+          {
+            openModal ? <DirectorNew
+            handleOpenModal = { handleOpenModal}
+            listarDirectores = { listarDirectores } /> :
+            <button type= "button" className = "btn btn-primary agr" onClick={ handleOpenModal}>
+          <i class="fa-solid fa-plus"></i>
+          </button>
+          }
+          
         </div>
         )
     }
         
-
-
+  

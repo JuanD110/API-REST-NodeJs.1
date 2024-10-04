@@ -9,7 +9,7 @@ const getTipo = () => {
 }
 
 const crearTipo = (data) => {
-    return axiosInstance.post('tipo', { //http://localhost4000/tipo
+    return axiosInstance.post('tipo', data, { //http://localhost4000/tipo
         header: {
             'Content-Type': 'application/json'
         }
