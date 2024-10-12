@@ -8,6 +8,14 @@ const getDirectores = () => {
      });
 }
 
+const getDirectorPorId = (directorId) => {
+    return axiosInstance.get(`media/${directorId}`, {
+
+        header: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
 const crearDirector = (data) => {
     return axiosInstance.post('director', data, { //http://localhost4000/director
         header: {
@@ -24,5 +32,14 @@ const actualizarDirector = (directorId, data) => {
     });
 }
 
-export { actualizarDirector, crearDirector, getDirectores };
+const eliminarDirector = (directorId) => {
+    return axiosInstance.delete(`director/${directorId}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+
+export { actualizarDirector, crearDirector, getDirectores, eliminarDirector };
 

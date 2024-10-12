@@ -25,5 +25,24 @@ const actualizarMedia = (mediaId, data) => {
     });
 }
 
-export { actualizarMedia, crearMedia, getMedia };
+const getMediaPorId = (mediaId) => {
+    return axiosInstance.get(`media/${mediaId}`, {
+
+        header: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+const eliminarMedia = (mediaId) => {
+    return axiosInstance.delete(`media/${mediaId}`, {
+
+        header: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+
+export { actualizarMedia, crearMedia, getMedia, getMediaPorId, eliminarMedia };
 

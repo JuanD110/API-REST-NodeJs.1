@@ -24,4 +24,13 @@ const actualizarTipo = (tipoId, data) => {
     });
 }
 
-export { actualizarTipo, crearTipo, getTipo };
+const eliminarTipo = (tipoId) => {
+    return axiosInstance.delete(`tipo/${tipoId}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+
+export { actualizarTipo, crearTipo, getTipo, eliminarTipo };

@@ -17,7 +17,7 @@ export const MediaCard = (props) => {
                 <p className="card-text">{`Serial: ${media.serial}`}</p>
                 <p className="card-text">{`Titulo: ${media.titulo}`}</p>
                 <p className="card-text">{`Año de estreno: ${media.añoEstreno}`}</p>
-                  <Link to={`/media/${media._id}`}>Ver más...</Link>
+                  <Link to={`/media/edit/${media._id}`}>Ver más...</Link>
             </div>
         </div>
     </div>

@@ -17,6 +17,22 @@ router.get('/', async function (req, res) {
     }
 });
 
+
+// Obtener productora por ID
+router.get('/:id', async (req, res) => {
+    const { id } = req.params; // Aquí estás obteniendo el ID de los parámetros de la URL
+    try {
+        const productora = await Productora.findById(id); // Busca la productora por ID
+        if (!productora) {
+            return res.status(404).send('Productora no encontrada'); // Respuesta si no se encuentra
+        }
+        res.json(productora); // Responde con los datos de la productora
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error del servidor'); // Manejo de errores
+    }
+});
+
 router.post('/', [
     check('nombres', 'invalid.nombres').not().isEmpty(),
     check('estado', 'invalid.estado').isIn(['Activo', 'Inactivo']),

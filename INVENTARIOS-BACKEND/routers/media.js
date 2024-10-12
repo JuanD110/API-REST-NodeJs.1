@@ -17,6 +17,21 @@ router.get('/', async function (req, res) {
         res.status(500).send('Ocurrió un error');
     }
 });
+
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const media = await Media.findById(id);
+        if (!media) {
+            return res.status(404).send('Media not found');
+        }
+        res.send(media);
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+
 router.post('/', [
     check('serial', 'El campo serial es obligatorio y debe ser único').not().isEmpty(),
     check('titulo', 'El campo titulo es obligatorio').not().isEmpty(),

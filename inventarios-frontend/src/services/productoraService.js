@@ -24,4 +24,22 @@ const actualizarProductora = (productoraId, data) => {
     });
 }
 
-export { actualizarProductora, crearProductora, getProductora };
+const getProductoraPorId = (productoraId) => {
+    return axiosInstance.get(`productora/${productoraId}`, {
+
+        header: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+const eliminarProductora = (productoraId) => {
+    return axiosInstance.delete(`productora/${productoraId}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+
+export { actualizarProductora, crearProductora, getProductora, eliminarProductora, getProductoraPorId };
