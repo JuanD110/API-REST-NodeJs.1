@@ -67,7 +67,7 @@ export const TipoView = () => {
 
   const handleActualizarTipo = async (e, tipo) => {
     e.preventDefault();
-    setValoresForm({ nombre: tipo.nombre, estado: tipo.estado, descripcion: tipo.descripcion });
+    setValoresForm({ nombres: tipo.nombres, fechaCreacion: tipo.fechaCreacion, fechaActualizacion: tipo.fechaActualizacion, descripcion: tipo.descripcion });
     setTipoSeleccionado(tipo._id); 
   };
 
